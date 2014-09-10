@@ -1,0 +1,13 @@
+Problema: dado un texto, generar el indice de las 25 palabras mas usadas en el
+texto.
+
+
+1.-dado texto separar en palabras
+2.-discriminar signos de puntuacion
+3.-discriminar articulos (el,la,los,un,...)
+4.-tomar las 25 palabras mas usadas
+################################################################################
+1. dada una palabra y contar la cantidad de veces que aparece en el texto :-)
+2. devolver las palabras usadas en el texto
+3. eliminar algunas palabras no deseadas (articulos)
+4. tomar las 25 palabras mas usadas
