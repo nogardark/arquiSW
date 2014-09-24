@@ -1,4 +1,3 @@
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -10,7 +9,7 @@ import org.junit.Test;
  *
  * @author franko
  */
-public class PalabraIndiceTest {
+public class PalabraTest {
 
     /**
      * Partiendo de lo mas simple.. que una palabra(String) este asociada a las
@@ -19,76 +18,76 @@ public class PalabraIndiceTest {
     @Test
     public void nuevaPalabra() {
         String palabra = "palabra";
-        PalabraIndice palabraIndice = new PalabraIndice(palabra);
+        Palabra Palabra = new Palabra(palabra);
         int esperado = 1;
-        int respuesta = palabraIndice.getIndice();
+        int respuesta = Palabra.getRepetida();
         assertEquals(esperado, respuesta);
     }
 
     @Test
     public void incrementarIndicePalabra() {
         String palabra = "palabra";
-        PalabraIndice palabraIndice = new PalabraIndice(palabra);
+        Palabra Palabra = new Palabra(palabra);
         int repetir = 0;
         while (repetir < 5) {
-            palabraIndice.incrementarIndice();
+            Palabra.incrementarRepetido();
             repetir++;
         }
         int esperado = 6;
-        int respuesta = palabraIndice.getIndice();
+        int respuesta = Palabra.getRepetida();
         assertEquals(esperado, respuesta);
     }
 
     @Test
     public void compararPalabraMinusculasIguales() {
-        PalabraIndice palabra1 = new PalabraIndice("palabra");
+        Palabra palabra1 = new Palabra("palabra");
         String palabra2 = "palabra";
         assertTrue(palabra1.esIgual(palabra2));
     }
 
     @Test
     public void compararPalabraMinusculasDistintos() {
-        PalabraIndice palabra1 = new PalabraIndice("palabra");
+        Palabra palabra1 = new Palabra("palabra");
         String palabra2 = "palabra2";
         assertFalse(palabra1.esIgual(palabra2));
     }
 
     @Test
     public void compararPalabraMayusculaIguales() {
-        PalabraIndice palabra1 = new PalabraIndice("palabra");
+        Palabra palabra1 = new Palabra("palabra");
         String palabra2 = "PALABRA";
         assertTrue(palabra1.esIgual(palabra2));
     }
 
     @Test
     public void compararPalabraMayusculaDistintos() {
-        PalabraIndice palabra1 = new PalabraIndice("palabra");
+        Palabra palabra1 = new Palabra("palabra");
         String palabra2 = "PALABRA2";
         assertFalse(palabra1.esIgual(palabra2));
     }
 
     @Test
     public void compararPalabrasMayusculasIguales() {
-        PalabraIndice palabra1 = new PalabraIndice("PALABRA");
+        Palabra palabra1 = new Palabra("PALABRA");
         String palabra2 = "palabra";
         assertTrue(palabra1.esIgual(palabra2));
     }
 
     public void compararPalabrasMayusculasDistintos() {
-        PalabraIndice palabra1 = new PalabraIndice("PALABRA");
+        Palabra palabra1 = new Palabra("PALABRA");
         String palabra2 = "PALABRA2";
         assertFalse(palabra1.esIgual(palabra2));
     }
 
     @Test
     public void compararPalabraVacia() {
-        PalabraIndice palabra1 = new PalabraIndice("PALAbra");
+        Palabra palabra1 = new Palabra("PALAbra");
         String palabra2 = "";
         assertFalse(palabra1.esIgual(palabra2));
     }
     /**
-     * @Test public void compararPalabrasConAcento(){ PalabraIndice palabra1=new
-     * PalabraIndice("palabra"); String palabra2="palabrá";
+     * @Test public void compararPalabrasConAcento(){ Palabra palabra1=new
+     * Palabra("palabra"); String palabra2="palabrá";
      * assertTrue(palabra1.esIgual(palabra2)); }
      *
      *

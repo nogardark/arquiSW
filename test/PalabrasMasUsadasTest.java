@@ -13,348 +13,165 @@ import static org.junit.Assert.*;
  * @author franko
  */
 public class PalabrasMasUsadasTest {
-
+    
+    
     @Test
-    public void agregarPalabra() {
-        String palabra = "PALABRA";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        boolean respuesta = palabrasMasUsadas.agregarPalabra(palabra);
-        assertTrue(respuesta);
+    public void textoVacioDosPalabrasMasUsadas(){
+        String texto="";
+        String [] articulos=new String[15];
+        int palabraMasUsadas=2;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        assertNull(palabras);
     }
-
+    
     @Test
-    public void noAgregarPalabraVacia() {
-        String palabra = "";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        boolean respuesta = palabrasMasUsadas.agregarPalabra(palabra);
-        assertFalse(respuesta);
+    public void ceroPalabrasMasUsadas(){
+        String texto="hola mundo";
+        String [] articulos=new String[15];
+        int palabraMasUsadas=0;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        assertNull(palabras);
     }
-
     @Test
-    public void palabraNoExisteConListaVacia() {
-        String palabra = "nuevo";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        PalabraIndice respuesta = palabrasMasUsadas.buscarPalabra(palabra);
-        assertNull(respuesta);
+    public void unaPalabraMasUsadas(){
+        String texto="palabra de texto,con Palabra en el mundo;";
+        String [] articulos={"de","con","en","el"};
+        int palabraMasUsadas=1;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        assertEquals(1,palabras.size());
+        assertEquals("palabra",palabras.get(0).getPalabra());
+        assertEquals(2,palabras.get(0).getRepetida());
     }
-
     @Test
-    public void palabraNoExisteConListaNoVacia() {
-        String palabra = "nuevo";
-        String palabra1 = "palabra1";
-        String palabra2 = "palabra2";
-        String palabra3 = "palabra3";
-
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.agregarPalabra(palabra1);
-        palabrasMasUsadas.agregarPalabra(palabra2);
-        palabrasMasUsadas.agregarPalabra(palabra3);
-        PalabraIndice respuesta = palabrasMasUsadas.buscarPalabra(palabra);
-
-        assertNull(respuesta);
+    public void tresPalabraMasUsadas(){
+        String texto="palabra de texto, con (Palabra) en el mundo; palabra palabra palabra texto, texto texto java java";
+        String [] articulos={"de","con","en","el"};
+        int palabraMasUsadas=3;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        
+        assertEquals(3,palabras.size());
+        
+        assertEquals("palabra",palabras.get(0).getPalabra());
+        assertEquals(5,palabras.get(0).getRepetida());
+        assertEquals("texto",palabras.get(1).getPalabra());
+        assertEquals(4,palabras.get(1).getRepetida());
+        assertEquals("java",palabras.get(2).getPalabra());
+        assertEquals(2,palabras.get(2).getRepetida());
     }
-
+    
     @Test
-    public void palabraExisteConListaNoVacia() {
-        String palabra = "nuevo";
-        String palabra1 = "palabra1";
-        String palabra2 = "palabra2";
-        String palabra3 = "palabra3";
-
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.agregarPalabra(palabra1);
-        palabrasMasUsadas.agregarPalabra(palabra2);
-        palabrasMasUsadas.agregarPalabra(palabra3);
-        palabrasMasUsadas.agregarPalabra(palabra);
-        PalabraIndice resultado = palabrasMasUsadas.buscarPalabra(palabra);
-        assertNotNull(resultado);
+    public void masPalabraMasUsadas(){
+        String texto="palabra de texto, con Palabra en el mundo java; palabra palabra palabra texto, texto texto java java";
+        String [] articulos={"de","con","en","el"};
+        int palabraMasUsadas=6;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        
+        assertEquals(4,palabras.size());
+        
+        assertEquals("palabra",palabras.get(0).getPalabra());
+        assertEquals(5,palabras.get(0).getRepetida());
+        assertEquals("texto",palabras.get(1).getPalabra());
+        assertEquals(4,palabras.get(1).getRepetida());
+        assertEquals("java",palabras.get(2).getPalabra());
+        assertEquals(3,palabras.get(2).getRepetida());
+        assertEquals("mundo",palabras.get(3).getPalabra());
+        assertEquals(1,palabras.get(3).getRepetida());
     }
-
     @Test
-    public void incrementarIndicePalabraNoExiste() {
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        boolean respuesta = palabrasMasUsadas.incrementarIndice(palabra);
-        assertFalse(respuesta);
-    }
-
-    @Test
-    public void incrementarIndicePalabraExiste() {
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.agregarPalabra(palabra);
-        boolean respuesta = palabrasMasUsadas.incrementarIndice(palabra);
-        assertTrue(respuesta);
-    }
-
-    @Test
-    public void agregarPalabraDosVecesListaMantenerSize() {
-        String palabra = "nuevo";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-
-        palabrasMasUsadas.agregarPalabra(palabra);
-        palabrasMasUsadas.agregarPalabra(palabra);
-
-        int respuesta = palabrasMasUsadas.getListaPalabras().size();
-        int esperado = 1;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void agregarPalabraDosVeces() {
-        String palabra = "nuevo";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-
-        palabrasMasUsadas.agregarPalabra(palabra);
-        palabrasMasUsadas.agregarPalabra(palabra);
-
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 2;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void obtenerPalabraDeTextoVacio() {
-        String texto = "";
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.getPalabras(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 0;
-        assertEquals(esperado, respuesta);
-    }
-
-    public void obtenerPalabraVaciaDeTextoVacio() {
-        String texto = "";
-        String palabra = "";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.getPalabras(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 0;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void obtenerPalabraDeTextoNoVacio() {
-        String texto = "una palabra es cada uno de los segmentos limitados por delimitadores "
-                + "en la cadena hablada o escrita.";
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.procesarTexto(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 1;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void tresVecesPalabraDeTextoNoVacio() {
-        String texto = "una palabra es cada uno de los segmentos limitados por delimitadores "
-                + "en la cadena palabra hablada o escrita y palabra.";
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.procesarTexto(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 3;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void discrinandoPuntuacion() {
-        String texto = "texto. palabra, (texto) palabra; texto:";
-        String palabra = "texto";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.procesarTexto(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 3;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void discrinandoPuntuacionDos() {
-        String texto = "texto palabra, (texto) palabra; texto";
-        String palabra = "palabra";
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.procesarTexto(texto);
-        int respuesta = palabrasMasUsadas.palabraRepetida(palabra);
-        int esperado = 2;
-        assertEquals(esperado, respuesta);
-    }
-
-    @Test
-    public void discrinandoArticulos() {
-        String texto = "La arquitectura de software forma la columna vertebral para "
-                + "construir un sistema de software, es en gran medida responsable "
-                + "de permitir o no ciertos atributos de calidad del sistema entre "
-                + "los que se destacan la confiabilidad y el rendimiento del software.";
-
-        String[] articulos = {"la", "el", "las", "los", "no", "de", "del", "en", "para", "que", "se", "un", "o", "y", "gran", "entre"};
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        String[] palabrasConArticulos = palabrasMasUsadas.getPalabras(texto);
-        ArrayList<String> palabrasSinArticulos = palabrasMasUsadas.discriminarArticulos(palabrasConArticulos, articulos);
-        boolean existeArticulo = false;
-        int i = 0;
-        int j = 0;
-        while (!existeArticulo && i < palabrasSinArticulos.size()) {
-            while (!existeArticulo && j < articulos.length) {
-                existeArticulo = palabrasSinArticulos.get(i).equalsIgnoreCase(articulos[j]);
-                j++;
-            }
-            i++;
-        }
-        assertFalse(existeArticulo);
-
-    }
-
-    @Test
-    public void nNegativoPalabrasMasUsadas() {
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        palabrasMasUsadas.agregarPalabra("texto");
-        ArrayList<PalabraIndice> masUsadas = palabrasMasUsadas.getNPalabras(-4);
-        int cantidadEsperado = 0;
-        int cantidadObtenido = masUsadas.size();
-        assertEquals(cantidadEsperado, cantidadObtenido);
-    }
-
-    @Test
-    public void nPalabrasMasUsadasListaVacia() {
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        ArrayList<PalabraIndice> masUsadas = palabrasMasUsadas.getNPalabras(4);
-        int cantidadEsperado = 0;
-        int cantidadObtenido = masUsadas.size();
-        assertEquals(cantidadEsperado, cantidadObtenido);
-    }
-
-    @Test
-    public void dosPalabrasMasUsadas() {
-
-        String texto = "palabra peculiar, es palabra. Peculiar texto; funcion funcion. Funcion; estatica (palabra) "
-                + "peculiar estatica funcion de la palabra se toma el texto en la funcion";
-        String[] articulos = {"la", "de", "se", "el", "es", "en"};
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        String[] palabrasConArticulos = palabrasMasUsadas.getPalabras(texto);
-        ArrayList<String> palabrasSinArticulos = palabrasMasUsadas.discriminarArticulos(palabrasConArticulos, articulos);
-
-        for (Iterator<String> it = palabrasSinArticulos.iterator(); it.hasNext();) {
-            String palabra = it.next();
-            palabrasMasUsadas.agregarPalabra(palabra);
-        }
+    public void palabrasRepetidasIgualesMasUsadas(){
+        String texto="palabra de texto, con Palabra en el mundo java; palabra palabra palabra texto, texto texto java java java";
+        String [] articulos={"de","con","en","el"};
+        int palabraMasUsadas=3;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        
+        assertEquals(3,palabras.size());
+        
+        assertEquals("palabra",palabras.get(0).getPalabra());
+        assertEquals(5,palabras.get(0).getRepetida());
+        assertEquals("texto",palabras.get(1).getPalabra());
+        assertEquals(4,palabras.get(1).getRepetida());
+        assertEquals("java",palabras.get(2).getPalabra());
+        assertEquals(4,palabras.get(2).getRepetida());
         /**
-         * funcion->5 palabra->4 peculiar->3 texto->2 estatica->2
-         *
-         */
-        ArrayList<PalabraIndice> masUsadas = palabrasMasUsadas.getNPalabras(2);
-        int cantidadEsperado = 2;
-        int cantidadObtenido = masUsadas.size();
-
-        PalabraIndice p1 = masUsadas.get(0);
-        PalabraIndice p2 = masUsadas.get(1);
-
-        boolean esperadoP1 = p1.esIgual("funcion");
-        boolean esperadoP2 = p2.esIgual("palabra");
-        int repetidoP1 = p1.getIndice();
-        int repetidoP2 = p2.getIndice();
-
-        assertEquals(cantidadEsperado, cantidadObtenido);
-        assertTrue(esperadoP1);
-        assertTrue(esperadoP2);
-        assertEquals(5, repetidoP1);
-        assertEquals(4, repetidoP2);
+        assertEquals("mundo",palabras.get(3).getPalabra());
+        assertEquals(1,palabras.get(3).getRepetida());
+        **/
     }
-
+    
+    
+    /**
     @Test
-    public void tresPalabrasMasUsadas() {
-
-        String texto = "palabra peculiar, es palabra. Peculiar texto; funcion funcion. Funcion: estatica (palabra) "
-                + "peculiar estatica funcion de la palabra se toma el texto en la funcion";
-        String[] articulos = {"la", "de", "se", "el", "es", "en"};
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        String[] palabrasConArticulos = palabrasMasUsadas.getPalabras(texto);
-        ArrayList<String> palabrasSinArticulos = palabrasMasUsadas.discriminarArticulos(palabrasConArticulos, articulos);
-
-        for (Iterator<String> it = palabrasSinArticulos.iterator(); it.hasNext();) {
-            String palabra = it.next();
-            palabrasMasUsadas.agregarPalabra(palabra);
-        }
-        /**
-         * funcion->5 palabra->4 peculiar->3 texto->2 estatica->2
-         *
-         */
-        ArrayList<PalabraIndice> masUsadas = palabrasMasUsadas.getNPalabras(3);
-        int cantidadEsperado = 3;
-        int cantidadObtenido = masUsadas.size();
-
-        PalabraIndice p1 = masUsadas.get(0);
-        PalabraIndice p2 = masUsadas.get(1);
-        PalabraIndice p3 = masUsadas.get(2);
-        boolean esperadoP1 = p1.esIgual("funcion");
-        boolean esperadoP2 = p2.esIgual("palabra");
-        boolean esperadoP3 = p3.esIgual("peculiar");
-
-        int repetidoP1 = p1.getIndice();
-        int repetidoP2 = p2.getIndice();
-        int repetidoP3 = p3.getIndice();
-
-        assertEquals(cantidadEsperado, cantidadObtenido);
-        assertTrue(esperadoP1);
-        assertTrue(esperadoP2);
-        assertTrue(esperadoP3);
-
-        assertEquals(5, repetidoP1);
-        assertEquals(4, repetidoP2);
-        assertEquals(3, repetidoP3);
+    public void incrementarPalabraRepetida(){
+        ArrayList<Palabra>palabras=new ArrayList<>();
+        palabras.add(new Palabra("texto"));
+        palabras.add(new Palabra("palabra"));
+        palabras.add(new Palabra("java"));
+        PalabrasMasUsadas palabrasMasUsadas=new PalabrasMasUsadas();
+        palabrasMasUsadas.incrementarIndice(palabras,0);
+        palabrasMasUsadas.incrementarIndice(palabras,0);
+        palabrasMasUsadas.incrementarIndice(palabras,0);
+        palabrasMasUsadas.incrementarIndice(palabras,0);
+        palabrasMasUsadas.incrementarIndice(palabras,1);
+        palabrasMasUsadas.incrementarIndice(palabras,1);
+        palabrasMasUsadas.incrementarIndice(palabras,1);
+        palabrasMasUsadas.incrementarIndice(palabras,2);
+        palabrasMasUsadas.incrementarIndice(palabras,2);
+        
+        assertEquals(5, palabras.get(0).getIndice());
+        assertEquals(4, palabras.get(1).getIndice());
+        assertEquals(3, palabras.get(2).getIndice());   
     }
-
-    public void esMenorPalabrasMasUsadas() {
-
-        String texto = "palabra peculiar, es palabra. Peculiar texto; funcion funcion. Funcion: (palabra) "
-                + "peculiar funcion de la palabra se toma el texto en la funcion estatica";
-        String[] articulos = {"la", "de", "se", "el", "es", "en"};
-        PalabrasMasUsadas palabrasMasUsadas = new PalabrasMasUsadas();
-        String[] palabrasConArticulos = palabrasMasUsadas.getPalabras(texto);
-        ArrayList<String> palabrasSinArticulos = palabrasMasUsadas.discriminarArticulos(palabrasConArticulos, articulos);
-
-        for (Iterator<String> it = palabrasSinArticulos.iterator(); it.hasNext();) {
-            String palabra = it.next();
-            palabrasMasUsadas.agregarPalabra(palabra);
-        }
-        /**
-         * funcion->5 palabra->4 peculiar->3 texto->2 estatica->1
-         *
-         */
-        ArrayList<PalabraIndice> masUsadas = palabrasMasUsadas.getNPalabras(8);
-        int cantidadEsperado = 5;
-        int cantidadObtenido = masUsadas.size();
-
-        PalabraIndice p1 = masUsadas.get(0);
-        PalabraIndice p2 = masUsadas.get(1);
-        PalabraIndice p3 = masUsadas.get(2);
-        PalabraIndice p4 = masUsadas.get(3);
-        PalabraIndice p5 = masUsadas.get(4);
-
-        boolean esperadoP1 = p1.esIgual("funcion");
-        boolean esperadoP2 = p2.esIgual("palabra");
-        boolean esperadoP3 = p3.esIgual("peculiar");
-        boolean esperadoP4 = p4.esIgual("texto");
-        boolean esperadoP5 = p5.esIgual("estatica");
-
-        int repetidoP1 = p1.getIndice();
-        int repetidoP2 = p2.getIndice();
-        int repetidoP3 = p3.getIndice();
-        int repetidoP4 = p4.getIndice();
-        int repetidoP5 = p5.getIndice();
-
-        assertEquals(cantidadEsperado, cantidadObtenido);
-
-        assertTrue(esperadoP1);
-        assertTrue(esperadoP2);
-        assertTrue(esperadoP3);
-        assertTrue(esperadoP4);
-        assertTrue(esperadoP5);
-
-        assertEquals(5, repetidoP1);
-        assertEquals(4, repetidoP2);
-        assertEquals(3, repetidoP3);
-        assertEquals(2, repetidoP3);
-        assertEquals(1, repetidoP3);
+    @Test
+    public void buscarPalabraListaVacia(){
+        ArrayList<Palabra>palabras=new ArrayList<>();
+        PalabrasMasUsadas palabrasMasUsadas=new PalabrasMasUsadas();
+        int respuesta =palabrasMasUsadas.getIndexPalabra("texto",palabras);
+        assertEquals(-1,respuesta);
     }
+    
+    @Test
+    public void buscarPalabraListaNoVacia(){
+        ArrayList<Palabra>palabras=new ArrayList<>();
+        palabras.add(new Palabra("texto"));
+        palabras.add(new Palabra("palabra"));
+        palabras.add(new Palabra("java"));
+        PalabrasMasUsadas palabrasMasUsadas=new PalabrasMasUsadas();
+        int respuesta1 =palabrasMasUsadas.getIndexPalabra("texto",palabras);
+        assertEquals(0,respuesta1);
+        int respuesta2 =palabrasMasUsadas.getIndexPalabra("palabra",palabras);
+        assertEquals(1,respuesta2);
+        int respuesta3 =palabrasMasUsadas.getIndexPalabra("java",palabras);
+        assertEquals(2,respuesta3);
+    }
+     @Test
+    public void palabraNoExisteListaNoVacia(){
+        ArrayList<Palabra>palabras=new ArrayList<>();
+        palabras.add(new Palabra("texto"));
+        palabras.add(new Palabra("palabra"));
+        palabras.add(new Palabra("java"));
+        PalabrasMasUsadas palabrasMasUsadas=new PalabrasMasUsadas();
+        int respuesta =palabrasMasUsadas.getIndexPalabra("factorizar",palabras);
+        assertEquals(-1,respuesta);
+     }
+     
+     **/
+    
+    /**
+    @Test
+    public void dosPalabrasMasUsadas(){
+        String texto="hola mundo,hola java: los un hola hola mundo mundo. java";
+        String [] articulos={"la","los","un","de","el","con"};        
+        int palabraMasUsadas=2;
+        PalabrasMasUsadas masUsadas=new PalabrasMasUsadas();
+        ArrayList<Palabra> palabras=masUsadas.getPalabrasMasUsadas(texto,articulos,palabraMasUsadas);
+        assertEquals(palabraMasUsadas, palabras.size());
+    }**/
+
+    
 }

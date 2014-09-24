@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="localhost" name="PalabrasMasUsadasTest" tests="5" time="0.155" timestamp="2014-09-12T20:00:35">
+<testsuite errors="0" failures="0" hostname="localhost" name="PalabraTest" tests="8" time="0.048" timestamp="2014-09-12T20:00:34">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -54,7 +54,7 @@
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="ant.file.procesadorPalabras" value="/home/franko/NetBeansProjects/procesadorPalabras/build.xml" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner PalabrasMasUsadasTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/franko/NetBeansProjects/procesadorPalabras/build/test/results/TEST-PalabrasMasUsadasTest.xml crashfile=/home/franko/NetBeansProjects/procesadorPalabras/build/junitvmwatcher7106216348501476068.properties propsfile=/home/franko/NetBeansProjects/procesadorPalabras/build/junit1120355371005026324.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner PalabraTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/franko/NetBeansProjects/procesadorPalabras/build/test/results/TEST-PalabraTest.xml crashfile=/home/franko/NetBeansProjects/procesadorPalabras/build/junitvmwatcher7535592403864599912.properties propsfile=/home/franko/NetBeansProjects/procesadorPalabras/build/junit5071794603767590203.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -379,11 +379,14 @@
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="/home/franko/netbeans-7.3.1/enterprise/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="PalabrasMasUsadasTest" name="ceroPalabrasMasUsadas" time="0.002" />
-  <testcase classname="PalabrasMasUsadasTest" name="unaPalabraMasUsadas" time="0.001" />
-  <testcase classname="PalabrasMasUsadasTest" name="tresPalabraMasUsadas" time="0.0" />
-  <testcase classname="PalabrasMasUsadasTest" name="masPalabraMasUsadas" time="0.001" />
-  <testcase classname="PalabrasMasUsadasTest" name="textoVacioDosPalabrasMasUsadas" time="0.0" />
+  <testcase classname="PalabraTest" name="incrementarIndicePalabra" time="0.002" />
+  <testcase classname="PalabraTest" name="compararPalabraMinusculasIguales" time="0.0" />
+  <testcase classname="PalabraTest" name="compararPalabraMinusculasDistintos" time="0.0" />
+  <testcase classname="PalabraTest" name="compararPalabraMayusculaIguales" time="0.0" />
+  <testcase classname="PalabraTest" name="compararPalabraMayusculaDistintos" time="0.0" />
+  <testcase classname="PalabraTest" name="compararPalabrasMayusculasIguales" time="0.0" />
+  <testcase classname="PalabraTest" name="compararPalabraVacia" time="0.0" />
+  <testcase classname="PalabraTest" name="nuevaPalabra" time="0.0" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
